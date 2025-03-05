@@ -8,14 +8,14 @@ import Bench from "../component/dashboard/Bench.jsx";
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/stockseer" element={
+      <Route path="/stockseer/" element={ 
         <>
           <LandingPage />
           <Marquee />
           <About />
         </>
       } />
-      <Route path="/stockseer/bench" element={<Bench />} />
+      <Route path="/stockseer/bench/" element={<Bench />} />
     </Routes>
   );
 };
