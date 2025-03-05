@@ -37,7 +37,7 @@ function About() {
           </h1>
           <motion.button
             className="px-6 py-4 bg-zinc-900 rounded-full text-white flex uppercase gap-5 items-center"
-            onClick={() => navigate("/bench")} // Navigate to /bench on click
+            onClick={() => navigate("/stockseer/bench")} // Navigate to /bench on click
             onHoverStart={() => setIsHovered(true)}
             onHoverEnd={() => setIsHovered(false)}
           >
