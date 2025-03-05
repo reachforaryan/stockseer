@@ -6,7 +6,7 @@
       "headlines": ["Stock rises", "Seer knows", "Future awaits"],
       "subtext" : ["For predicting stocks", "Know about tomorrow"],
       "button" : "Start the project",
-      "image" : "src/assets/Frame.png"
+      "image" : "/home/src/assets/Frame.png"
     },
     "marquee": {
       "text": "Stocks by Seer"

@@ -40,7 +40,7 @@ const Bench = () => {
   }; // Keep previous news data
 
   return (
-    <div className="min-h-screen p-6 bg-gray-900 pt-20 px-20">
+    <div className="min-h-screen p-6 bg-black pt-20 px-20">
       {/* Header Row */}
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-bold text-[#D6CC99]">Dashboard</h1>

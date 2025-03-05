@@ -8,7 +8,7 @@ import Bench from "../component/dashboard/Bench.jsx";
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={
+      <Route path="/home" element={
         <>
           <LandingPage />
           <Marquee />
