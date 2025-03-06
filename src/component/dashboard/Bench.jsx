@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { LineChart,Line, XAxis, YAxis, CartesianGrid, Tooltip, ScatterChart, Scatter } from 'recharts';
 import { FiActivity, FiTrendingUp, FiAlertOctagon, FiSmile, FiFrown } from 'react-icons/fi';
 
 const Bench = () => {
-  const [selectedStock, setSelectedStock] = useState('AAPL');
+  const [selectedStock, setSelectedStock] = useState(localStorage.getItem('selectedStock') || 'AAPL');
+
+  // Fetch saved stock from backend when component mounts
+  useEffect(() => {
+    fetch("http://localhost:3000/get-stock")
+      .then(response => response.json())
+      .then(data => {
+        if (data.stock) {
+          setSelectedStock(data.stock);
+          localStorage.setItem('selectedStock', data.stock);
+        }
+      })
+      .catch(error => console.error("Error fetching stock:", error));
+  }, []);
 
   // Dummy data
   const stockData = [
@@ -38,6 +51,25 @@ const Bench = () => {
       'Q4 earnings miss estimates'
     ]
   }; // Keep previous news data
+  
+  // to pass the value of stock selected to backend for the model
+  const handleStockChange = (e) => {
+    const newStock = e.target.value;
+    setSelectedStock(newStock);
+    localStorage.setItem('selectedStock', newStock); // Save in localStorage
+
+    // Send selected stock to backend
+    fetch("http://localhost:3000/save-stock", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ stock: newStock }),
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error("Error:", error));
+  };
+  
+  
 
   return (
     <div className="min-h-screen p-6 bg-black pt-20 px-20">
@@ -46,7 +78,7 @@ const Bench = () => {
         <h1 className="text-3xl font-bold text-[#D6CC99]">Dashboard</h1>
         <select 
           value={selectedStock}
-          onChange={(e) => setSelectedStock(e.target.value)}
+          onChange={handleStockChange}
           className="px-4 py-2 rounded-lg bg-[#445D48] text-[#D6CC99] border-2 border-[#D6CC99] hover:bg-[#364b3a] transition-colors"
         >
           <option value="AAPL">Apple</option>
