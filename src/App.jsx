@@ -11,7 +11,7 @@ function App() {
 
   return (
     <Router>
-      <div className="w-full min-h-screen text-white bg-[#001524]">
+      <div className="w-full min-h-screen text-white bg-zinc-900">
         <Navbar />
         <AppRoutes />
       </div>

@@ -1,6 +1,6 @@
 {
     "navbar": {
-      "links": ["link1", "link2", "link3"]
+      "links": ["Test Area", "link2", "link3"]
     },
     "landingPage": {
       "headlines": ["Stock rises", "Seer knows", "Future awaits"],
@@ -19,7 +19,8 @@
         " Develop an intuitive and data-rich interface that visualizes stock insights, trends, and sentiment analysis in real time."
       ],
       "header" : "Want to Explore your Workbench?",
-      "button" : "Get Started"
+      "button" : "Get Started",
+      "image" : "src/assets/dashboardIMG.png"
     }
 }
   

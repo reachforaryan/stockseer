@@ -46,7 +46,7 @@ function About() {
           </motion.button>
         </div>
         <motion.div
-          className="absolute w-80vw h-80vh bg-red-600 rounded-4xl mt-10"
+          className="absolute w-80vw h-80vh rounded-4xl mt-10"
           style={{
             top: "50%",
             left: "74%",
@@ -57,7 +57,9 @@ function About() {
             height: isHovered ? "65vh" : "100%",
           }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-        ></motion.div>
+        >
+          <img src={data.about.image} className="object-cover w-full h-full rounded-4xl"></img>
+        </motion.div>
       </div>
     </div>
   );
