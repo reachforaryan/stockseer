@@ -24,6 +24,7 @@ ChartJS.register(
 );
 
 export default function StockDashboard() {
+  const [selectedStock, setSelectedStock] = useState("AAPL");
   const [timeFrame, setTimeFrame] = useState("1D");
   const [currentPrice] = useState(150.45);
   const [percentageChange] = useState(2.35);
@@ -34,7 +35,14 @@ export default function StockDashboard() {
       { length: points },
       (_, i) => currentPrice + (Math.random() - 0.5) * 20
     );
-
+  const stocks = [
+    { symbol: "AAPL", name: "Apple Inc." },
+    { symbol: "MSFT", name: "Microsoft Corporation" },
+    { symbol: "GOOGL", name: "Alphabet Inc." },
+    { symbol: "AMZN", name: "Amazon.com Inc." },
+    { symbol: "TSLA", name: "Tesla Inc." },
+  ];
+  const selectedStockDetails = stocks.find(stock => stock.symbol === selectedStock);
   const generateVolumeData = (points) =>
     Array.from({ length: points }, () => Math.floor(Math.random() * 1000000));
 
@@ -82,7 +90,25 @@ export default function StockDashboard() {
         {/* Main Price Chart */}
         <div className="lg:col-span-2 bg-zinc-800 p-6 rounded-2xl">
           <div className="flex justify-between items-center mb-6">
+          <div className="flex items-center gap-4">
+              {/* Stock Select Dropdown */}
+              <select
+                value={selectedStock}
+                onChange={(e) => setSelectedStock(e.target.value)}
+                className="bg-zinc-700 text-white px-4 py-2 rounded-lg appearance-none cursor-pointer"
+              >
+                {stocks.map((stock) => (
+                  <option
+                    key={stock.symbol}
+                    value={stock.symbol}
+                    className="bg-zinc-800"
+                  >
+                    {stock.symbol} - {stock.name}
+                  </option>
+                ))}
+              </select>
             <h2 className="text-2xl font-bold">AAPL - Apple Inc.</h2>
+            </div>
             <div className="flex gap-2">
               {["1D", "1W", "1M", "1Y"].map((frame) => (
                 <button

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 function Navbar() {
   const navigate = useNavigate();
   return (
-    <div className="fixed z-[999] w-full px-20 py-8 flex justify-between items-center">
+    <div className="fixed z-[999] w-full px-20 py-5 flex justify-between items-center backdrop-blur-lg bg-black/300 rounded-bl-3xl rounded-br-3xl">
       <div className="logo" onClick={() => navigate("/stockseer/")} >
         <svg
           width="124"

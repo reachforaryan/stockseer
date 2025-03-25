@@ -12,7 +12,7 @@ function About() {
       data-scroll
       data-scroll-section
       data-scroll-speed="0.4"
-      className="w-full py-20 bg-[#D6CC99] rounded-tl-3xl rounded-tr-3xl text-black -mt-70"
+      className="w-full py-20 bg-[#D6CC99] rounded-tl-3xl rounded-tr-3xl text-black -mt-70  z-9"
       style={{ height: "auto", minHeight: "100vh" }}
     >
       <h1 className="text-5xl p-12.5 leading-15 tracking-tight font-light">
@@ -58,7 +58,10 @@ function About() {
           }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
         >
-          <img src={data.about.image} className="object-cover w-full h-full rounded-4xl"></img>
+          <img
+            src={data.about.image}
+            className="object-cover w-full h-full rounded-4xl"
+          ></img>
         </motion.div>
       </div>
     </div>

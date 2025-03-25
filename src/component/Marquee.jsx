@@ -12,7 +12,7 @@ function Marquee() {
   const x = useTransform(scrollYProgress, [0, 1], ["6%", "-28%"]);
 
   return (
-    <div>
+    <div className="z-1">
       <div className="w-full overflow-hidden relative">
         {/* Parent div prevents background visibility */}
         <motion.div
