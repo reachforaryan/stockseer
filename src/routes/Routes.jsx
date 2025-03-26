@@ -10,7 +10,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route
-        path="/stockseer/"
+        path="/stockseer"
         element={
           <>
             <LandingPage />

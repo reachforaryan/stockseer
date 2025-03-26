@@ -8,7 +8,7 @@ const Sidebar = () => {
   const borderRef = useRef(null);
 
   const menuItems = [
-    { title: "Home", path: "/stockseer", icon: <FaHome /> },
+    { title: "Home", path: "/stockseer/", icon: <FaHome /> },
     { title: "Profile", path: "/stockseer/profile", icon: <FaUser /> },
     { title: "Dashboard", path: "/stockseer/test", icon: <FaChartLine /> },
     { title: "Analytics", path: "/stockseer/analytics", icon: <FaChartBar /> },
@@ -51,13 +51,13 @@ const Sidebar = () => {
     <div className="fixed top-1/2 -translate-y-1/2 left-4 z-50">
       <div
         ref={menuRef}
-        className="relative flex flex-col items-center py-3 px-2 bg-gray-800/80 backdrop-blur-md rounded-full shadow-lg"
+        className="relative flex flex-col items-center py-3 px-2 bg-zinc-800/80 backdrop-blur-sm rounded-full shadow-lg"
         style={{ height: "fit-content", minWidth: "48px" }}
       >
         {/* Sliding border */}
         <div
           ref={borderRef}
-          className="absolute w-8 h-8 bg-blue-500/10 transition-transform duration-500 ease-out"
+          className="absolute w-8 h-8 bg-zinc-500/10 transition-transform duration-500 ease-out"
           style={{
             borderRadius: "8px",
             transformOrigin: "center",
