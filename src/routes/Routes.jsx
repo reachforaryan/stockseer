@@ -9,13 +9,16 @@ import Test from "../component/dashboard/Test.jsx";
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/stockseer/" element={ 
-        <>
-          <LandingPage />
-          <Marquee />
-          <About />
-        </>
-      } />
+      <Route
+        path="/stockseer/"
+        element={
+          <>
+            <LandingPage />
+            <Marquee />
+            <About />
+          </>
+        }
+      />
       <Route path="/stockseer/bench/" element={<Bench />} />
       <Route path="/stockseer/test/" element={<Test />} />
     </Routes>
