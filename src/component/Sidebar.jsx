@@ -8,7 +8,7 @@ const Sidebar = () => {
   const borderRef = useRef(null);
 
   const menuItems = [
-    { title: "Home", path: "/stockseer", icon: <FaHome /> },
+    { title: "Home", path: "/stockseer/", icon: <FaHome /> },
     { title: "Profile", path: "/stockseer/profile", icon: <FaUser /> },
     { title: "Dashboard", path: "/stockseer/test", icon: <FaChartLine /> },
     { title: "Analytics", path: "/stockseer/analytics", icon: <FaChartBar /> },

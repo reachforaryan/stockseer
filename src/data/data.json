@@ -1,6 +1,7 @@
 {
     "navbar": {
-      "links": ["Test Area", "link2", "link3"]
+      "links": ["Log in", "Sign up"],
+      "Profile": ["Name", "ProfileImage"]
     },
     "landingPage": {
       "headlines": ["Stock rises", "Seer knows", "Future awaits"],

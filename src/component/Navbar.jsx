@@ -25,7 +25,6 @@ function Navbar() {
           <a
             key={index}
             className="text-md font-light"
-            onClick={() => navigate("/stockseer/test")}
           >
             {item}
           </a>
