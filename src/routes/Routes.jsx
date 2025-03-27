@@ -23,8 +23,8 @@ const AppRoutes = () => {
       />
       <Route path="/stockseer/bench/" element={<Bench />} />
       <Route path="/stockseer/test/" element={<Test />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
+      <Route path="/stockseer/login" element={<Login />} />
+      <Route path="/stockseer/signup" element={<Signup />} />
     </Routes>
   );
 };
