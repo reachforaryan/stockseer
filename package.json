@@ -17,6 +17,8 @@
     "@coreui/react": "^5.5.0",
     "@tailwindcss/vite": "^4.0.9",
     "chart.js": "^4.4.8",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
     "firebase": "^11.5.0",
     "framer-motion": "^12.4.10",
     "gh-pages": "^6.3.0",
