@@ -8,7 +8,7 @@
       "subtext" : ["For predicting stocks", "Know about tomorrow"],
       "button" : "Start the project",
       "image" : "/stockseer/src/assets/Frame.png"
-    },
+    }, 
     "marquee": {
       "text": "Stocks by Seer"
     },

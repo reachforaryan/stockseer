@@ -1,34 +1,45 @@
 import React from "react";
-import data from "../data/data.json";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext"; // Import useAuth
 
 function Navbar() {
   const navigate = useNavigate();
+  const { user, logout } = useAuth(); // Get user authentication status
+
   return (
     <div className="fixed z-[999] w-full px-20 py-5 flex justify-between items-center backdrop-blur-lg bg-black/300 rounded-bl-3xl rounded-br-3xl">
-      <div className="logo" onClick={() => navigate("/stockseer/")}>
-        <svg
-          width="124"
-          height="19"
-          viewBox="0 0 124 19"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M10.5341 6C10.4886 5.43182 10.2756 4.98864 9.89489 4.67045C9.51989 4.35227 8.94886 4.19318 8.18182 4.19318C7.69318 4.19318 7.29261 4.25284 6.98011 4.37216C6.6733 4.4858 6.44602 4.64205 6.2983 4.84091C6.15057 5.03977 6.07386 5.26705 6.06818 5.52273C6.05682 5.73295 6.09375 5.9233 6.17898 6.09375C6.26989 6.25852 6.41193 6.40909 6.60511 6.54545C6.7983 6.67614 7.04545 6.79545 7.34659 6.90341C7.64773 7.01136 8.00568 7.10795 8.42045 7.19318L9.85227 7.5C10.8182 7.70455 11.6449 7.97443 12.3324 8.30966C13.0199 8.64489 13.5824 9.03977 14.0199 9.49432C14.4574 9.94318 14.7784 10.4489 14.983 11.0114C15.1932 11.5739 15.3011 12.1875 15.3068 12.8523C15.3011 14 15.0142 14.9716 14.446 15.767C13.8778 16.5625 13.0653 17.1676 12.0085 17.5824C10.9574 17.9972 9.69318 18.2045 8.21591 18.2045C6.69886 18.2045 5.375 17.9801 4.24432 17.5312C3.11932 17.0824 2.24432 16.392 1.61932 15.4602C1 14.5227 0.6875 13.3239 0.681818 11.8636H5.18182C5.21023 12.3977 5.34375 12.8466 5.58239 13.2102C5.82102 13.5739 6.15625 13.8494 6.58807 14.0369C7.02557 14.2244 7.54545 14.3182 8.14773 14.3182C8.65341 14.3182 9.0767 14.2557 9.41761 14.1307C9.75852 14.0057 10.017 13.8324 10.1932 13.6108C10.3693 13.3892 10.4602 13.1364 10.4659 12.8523C10.4602 12.5852 10.3722 12.3523 10.2017 12.1534C10.0369 11.9489 9.7642 11.767 9.38352 11.608C9.00284 11.4432 8.48864 11.2898 7.84091 11.1477L6.10227 10.7727C4.55682 10.4375 3.33807 9.87784 2.44602 9.09375C1.55966 8.30398 1.11932 7.22727 1.125 5.86364C1.11932 4.75568 1.41477 3.78693 2.01136 2.95739C2.61364 2.12216 3.44602 1.47159 4.50852 1.00568C5.5767 0.539772 6.80114 0.306818 8.18182 0.306818C9.59091 0.306818 10.8097 0.542613 11.8381 1.0142C12.8665 1.4858 13.6591 2.15057 14.2159 3.00852C14.7784 3.8608 15.0625 4.85795 15.0682 6H10.5341Z"
-            fill="white"
-          />
-        </svg>
+      <div className="logo" onClick={() => navigate("/")}>
+        {/* Logo SVG */}
       </div>
+
       <div className="links flex gap-10">
-        {data.navbar.links.map((item, index) => (
-          <a
-            key={index}
-            className="text-md font-light"
+        
+
+        {/* Show Login/Signup if user is NOT logged in */}
+        {!user ? (
+          <>
+            <button
+              className="text-md font-light"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </button>
+            <button
+              className="text-md font-light"
+              onClick={() => navigate("/signup")}
+            >
+              Signup
+            </button>
+          </>
+        ) : (
+          // Show Logout button when logged in
+          <button
+            className="text-md font-light text-red-500"
+            onClick={logout}
           >
-            {item}
-          </a>
-        ))}
+            Logout
+          </button>
+        )}
       </div>
     </div>
   );
