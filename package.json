@@ -3,6 +3,7 @@
   "homepage": "https://reachforaryan.github.io/stockseer/",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -12,14 +13,17 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@coreui/coreui": "^5.2.0",
+    "@coreui/react": "^5.5.0",
     "@tailwindcss/vite": "^4.0.9",
-    "body-parser": "^1.20.3",
-    "express": "^4.21.2",
+    "chart.js": "^4.4.8",
+    "firebase": "^11.5.0",
     "framer-motion": "^12.4.10",
     "gh-pages": "^6.3.0",
     "gsap": "^3.12.7",
     "locomotive-scroll": "^5.0.0-beta.21",
     "react": "^19.0.0",
+    "react-chartjs-2": "^5.3.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "react-intersection-observer": "^9.15.1",
