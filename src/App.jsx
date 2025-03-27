@@ -31,7 +31,7 @@ function App() {
 
 function MainContent() {
   const location = useLocation();
-  const isAuthPage = location.pathname === "/login" || location.pathname === "/signup";
+  const isAuthPage = location.pathname === "/stockseer/login" || location.pathname === "/stockseer/signup";
 
   return (
     <div 
