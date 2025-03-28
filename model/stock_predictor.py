@@ -159,8 +159,8 @@ def get_stock_prediction_json(company_name, historical_data, news_data):
 def main():
     try:
         # Load data
-        historical_data = pd.read_csv("^BSESN.csv")
-        news_data = pd.read_csv("india-news-headlines.csv")
+        historical_data = pd.read_csv("model/^BSESN.csv")
+        news_data = pd.read_csv("model/india-news-headlines.csv")
         
         # Clean historical data
         historical_data = historical_data.iloc[2:].reset_index(drop=True)
@@ -238,11 +238,13 @@ def main():
             with open('stock_prediction_output.json', 'w') as f:
                 json.dump(prediction_json, f, indent=2)
             print("Error details have been saved to 'stock_prediction_output.json'")
+        
+        print("Predicted stock price:", prediction_json['data']['price_prediction']['predicted_price'])
             
     except Exception as e:
         error_json = {
             "status": "error",
-            "message": str(e),
+            "message": str(e),  
             "data": None
         }
         # Save error to JSON file
