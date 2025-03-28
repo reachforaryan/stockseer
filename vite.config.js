@@ -8,5 +8,14 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  base:"/stockseer/", // ✅ Use "/" locally, "/stockseer/" for GitHub
+  base: "/stockseer/", // ✅ Use "/" locally, "/stockseer/" for GitHub
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
+  },
 });

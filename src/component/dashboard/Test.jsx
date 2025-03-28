@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import StockPredictor from "./stockPredictor";
+import axios from "axios";
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,6 +15,8 @@ import {
 } from "chart.js";
 import { Line, Bar } from "react-chartjs-2";
 
+
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -23,12 +28,130 @@ ChartJS.register(
   Legend
 );
 
-export default function StockDashboard() {
-  const [selectedStock, setSelectedStock] = useState("AAPL");
-  const [timeFrame, setTimeFrame] = useState("1D");
-  const [currentPrice] = useState(150.45);
-  const [percentageChange] = useState(2.35);
 
+
+export default function StockDashboard() {
+  const [predictedPrice, setPredictedPrice] = useState(null);
+  const [priceChangePercentage, setPriceChangePercentage] = useState(null);
+  const [selectedStock, setSelectedStock] = useState("APPL");
+  const [timeFrame, setTimeFrame] = useState("1D");
+  const [currentPrice,setCurrentPrice] = useState(null);
+  const [percentageChange] = useState(2.35);
+  const [loading,setLoading] = useState(false);
+  const [error,setError] = useState(null);
+
+  const fetchPredictionData = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/predict');
+      
+      
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+  
+      const data = await response.json(); // Correct way to parse JSON
+      
+      console.log("Prediction response:", data);
+  
+      if (data && data.data) {
+        setPredictedPrice(data.data.predicted_price);
+        setCurrentPrice(data.data.current_price);
+  
+        if (data.data.current_price && data.data.predicted_price) {
+          const change =
+            (data.data.predicted_price - data.data.current_price) /
+            data.data.current_price;
+          setPriceChangePercentage(change);
+        }
+      } else {
+        throw new Error("Invalid data structure");
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+      setError("Failed to fetch prediction data");
+    }
+  };
+  
+  
+  
+  
+
+  //button even handler
+  const handlePredict = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const predictionResponse = await axios.get("stock_prediction_output.json");
+
+      if (predictionResponse.data.data && predictionResponse.data.data.price_prediction) {
+
+        setPredictedPrice(predictionResponse.data.data.price_prediction.predicted_price);
+        setCurrentPrice(predictionResponse.data.data.price_prediction.current_price);
+
+        if (
+          predictionResponse.data.data.price_prediction.current_price &&
+          predictionResponse.data.data.price_prediction.predicted_price
+        ) {
+          const change =
+            (predictionResponse.data.data.price_prediction.predicted_price -
+              predictionResponse.data.data.price_prediction.current_price) /
+            predictionResponse.data.data.price_prediction.current_price;
+          setPriceChangePercentage(change);
+        }
+      
+
+      } else {
+        throw new Error("Invalid data received");
+      }
+    } catch (error) {
+      console.error("Error triggering prediction:", error);
+      setError("Failed to run prediction model");
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  useEffect(() => {
+    //fetchPredictionData();
+    handlePredict();
+  }, []);
+  // Function to fetch stock prediction data
+  const fetchPrediction = () => {
+    fetch('/stock_prediction_output.json')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setPredictedPrice(data.data.predicted_price);
+        setCurrentPrice(data.data.current_price);
+      })
+      .catch(error => {
+        console.error('Error fetching updated data:', error);
+      });
+  };
+
+
+  const StockDropdown = () => {
+    const [selectedStock, setSelectedStock] = useState("");
+  
+    const stocks1 = [
+      { symbol: "AAPL", name: "Apple Inc." },
+      { symbol: "MSFT", name: "Microsoft Corporation" },
+      { symbol: "GOOGL", name: "Alphabet Inc." },
+      { symbol: "AMZN", name: "Amazon.com Inc." },
+      { symbol: "TSLA", name: "Tesla Inc." },
+    ];
+  
+    const dropdownChange = (event) => {
+      const selectedValue = event.target.value;
+      setSelectedStock(selectedValue);
+      console.log("Selected Stock:", selectedValue);
+      fetchPredictionData();
+    };
+  };
   // Dummy data generators
   const generateStockData = (points) =>
     Array.from(
@@ -107,6 +230,13 @@ export default function StockDashboard() {
                   </option>
                 ))}
               </select>
+              <button
+                onClick={handlePredict}
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                disabled={loading}
+              >
+                {"Run Model"}
+              </button>
             <h2 className="text-2xl font-bold">AAPL - Apple Inc.</h2>
             </div>
             <div className="flex gap-2">
@@ -147,21 +277,25 @@ export default function StockDashboard() {
         <div className="bg-zinc-800 p-6 rounded-2xl space-y-6">
           <div className="space-y-2">
             <div className="text-zinc-400">Current Price</div>
-            <div className="text-4xl font-bold">${currentPrice.toFixed(2)}</div>
+            <div className="text-4xl font-bold">{currentPrice !== null ? `${currentPrice}` : 'Loading...'}</div>
             <div
               className={`text-xl ${
                 percentageChange >= 0 ? "text-green-400" : "text-red-400"
               }`}
             >
-              {percentageChange >= 0 ? "+" : ""}
-              {percentageChange}%
             </div>
           </div>
 
           <div className="space-y-2">
             <div className="text-zinc-400">Predicted Price</div>
-            <div className="text-4xl font-bold text-purple-400">$156.20</div>
-            <div className="text-green-400">+3.8% vs current</div>
+            <div className="text-4xl font-bold text-purple-400">
+              {predictedPrice !== null ? `${predictedPrice}` : 'Loading...'}
+            </div>
+            <div className={priceChangePercentage >= 0 ? "text-green-400" : "text-red-400"}>
+              {priceChangePercentage !== null
+                ? `${priceChangePercentage >= 0 ? "+" : ""}${(priceChangePercentage * 100).toFixed(5)}% vs current`
+                : 'Loading...'}
+            </div>
           </div>
 
           <div className="space-y-2">
@@ -316,7 +450,7 @@ export default function StockDashboard() {
             </div>
             <div className="mt-4 text-zinc-400">Algorithm Confidence Score</div>
           </div>
-        </div>
+        </div>  
       </div>
     </div>
   );
